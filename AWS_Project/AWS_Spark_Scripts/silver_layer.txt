@@ -1,0 +1,50 @@
+import sys
+from awsglue.transforms import *
+from awsglue.utils import getResolvedOptions
+from pyspark.context import SparkContext
+from awsglue.context import GlueContext
+from awsglue.job import Job
+from pyspark.sql.functions import *
+
+## @params: [JOB_NAME]
+args = getResolvedOptions(sys.argv, ['JOB_NAME','load_date'])
+
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
+
+# Fetching Parameter
+load_date = args['load_date']
+
+# Read The BRONZE Data
+df_bookings = spark.read.format("csv")\
+                    .option("inferSchema",True)\
+                    .option("header",True)\
+                    .load(f"s3://awss3bucketansh/bronze/{load_date}/bookings.csv")
+
+df_passengers = spark.read.format("csv")\
+                    .option("inferSchema",True)\
+                    .option("header",True)\
+                    .load(f"s3://awss3bucketansh/bronze/{load_date}/passengers.csv")
+
+
+df_airports = spark.read.format("csv")\
+                    .option("inferSchema",True)\
+                    .option("header",True)\
+                    .load(f"s3://awss3bucketansh/bronze/{load_date}/airports.csv")
+                    
+df_full = df_bookings.join(df_airports,df_bookings['airport_id']==df_airports['airport_id'],"left").drop(df_airports['airport_id']).join(df_passengers,df_bookings['passenger_id']==df_passengers['passenger_id'],"left").drop(df_passengers['passenger_id'])
+
+
+df_full = df_full.withColumn("processed_at",current_timestamp())
+
+# Write The Data To SILVER Layer In DELTA Format
+df_full.write.format("delta")\
+        .mode("append")\
+        .option("path","s3://awss3bucketansh/silver/obt")\
+        .save()
+
+
+job.commit()

@@ -1,0 +1,5 @@
+Databricks Sign Up
+https://login.databricks.com/signup?provider=DB_FREE_TIER&dbx_source=www&itm_data=dbx-web&l=en-EN&itm_source=www&itm_category=learn&itm_page=free-edition&itm_location=body&itm_component=hero&itm_offer=free-edition&tuuid=806e1044-3eb7-437a-a3be-4cebf2c56ed2&intent=SIGN_UP&rl_aid=29a25ede-ef81-4caf-b115-a935a59e2c71&sisu_state=eyJsZWdhbFRleHRTZWVuIjp7Ii9zaWdudXAiOnsidG9zIjp0cnVlLCJwcml2YWN5Ijp0cnVlLCJjb3Jwb3JhdGVFbWFpbFNoYXJpbmciOnRydWV9fX0%3D
+
+Databricks Login
+https://login.databricks.com/?itm_source=www&itm_category=learn&itm_page=free-edition&itm_location=body&itm_component=hero&tuuid=6f454560-b0a4-4eb2-9a7c-73267104fbc2&dbx_source=direct&rl_aid=29a25ede-ef81-4caf-b115-a935a59e2c71

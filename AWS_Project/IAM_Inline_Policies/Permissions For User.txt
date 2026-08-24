@@ -1,0 +1,7 @@
+Make sure the user has all of these permissons
+- AmazonS3FullAccess
+- AWSGlueConsoleFullAccess
+- AWSGlueServiceRole
+- CloudWatchLogsFullAccess
+
+And, we also created one inline policy that you attach with this. The code for inline policy is in the other file.
